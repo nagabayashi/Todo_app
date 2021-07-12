@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class TodoController extends Controller
 {
-    public function index(Request $request)  //publicは公開型（クラスの外からもアクセスできる）のアクセス修飾子。関数や変数の前につける。
+    public function index(Request $request)  //publicは公開型（クラスの外からもアクセスできる）のアクセス修飾子。関数や変数の前につける。Laravelのサーボスコンテナの機能で、indexアクションメソッドの引数にRequestクラスを指定すればインスタンスが$requestに渡され利用できるようになる⇨メソッドインジェクション
     {
         $items = DB::select('select * from tasks');  //クエリ文でtasksテーブルのレコードを全て$itemsに代入
         // dd($items);  
@@ -31,7 +31,9 @@ class TodoController extends Controller
         $param = [
             'id' => $request->id
         ];
+        // echo $param;
         $item = DB::select('select * from tasks where id = :id', $param);
+        // echo $item;
         return view('edit', ['form' => $item[0]]);
     }
     public function update(Request $request)
@@ -40,7 +42,23 @@ class TodoController extends Controller
             'id' => $request->id,
             'list' => $request->list,
         ];
-        DB::update('update people set name =:name, age =:age where id =:id', $param);
+        DB::update('update tasks set list =:list where id =:id', $param);
+        return redirect('/');
+    }
+    public function delete(Request $request){
+        $param = [
+            'id' => $request->id
+        ];
+        $item = DB::select('select * from tasks where id = :id', $param);
+        return view('delete', ['form' => $item[0]]);   
+    }
+    public function remove(Request $request)
+    {
+        $param = [
+            'id' => $request->id,
+            // 'list' => $request->list,
+        ];
+        DB::delete('delete from tasks where id =:id', $param);
         return redirect('/');
     }
 }

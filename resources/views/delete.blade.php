@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -27,8 +28,7 @@
 </head>
 
 <body>
-  <form action="/edit" method="post"> 
-    {{-- formタグはサーバーに入力された情報を送信する。actionは情報の送信先。methodにgetを指定するとURLの末尾に情報が付与されrて送信される。--}}
+  <form action="/delete" method="post"> 
     <table>
       @csrf
       <tr>
@@ -48,7 +48,7 @@
         </td>
       </tr>
     </table>
-    <button>更新</button>
+    <button>削除</button>
   </form>
 </body>
 

@@ -9,4 +9,6 @@ Route::get('/', [TodoController::class, 'index']);  //getメソッドは、第�
 Route::get('/add', [TodoController::class, 'add']);  ///addにアクセスして、TodoControllerのaddメソッドを行う
 Route::post('/add', [TodoController::class, 'create']);
 Route::get('/edit', [TodoController::class, 'edit']);
-Route::post('edit', [TodoController::class, 'update']);
+Route::post('/edit', [TodoController::class, 'update']);
+Route::get('/delete', [TodoController::class, 'delete']);
+Route::post('/delete', [TodoController::class, 'remove']);
