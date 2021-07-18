@@ -16,6 +16,7 @@
       border: 1px solid black;
       padding: 5px 30px;
       text-align: center;
+
     }
 
     button {
@@ -28,7 +29,7 @@
 
 <body>
   <form action="/edit" method="post"> 
-    {{-- formタグはサーバーに入力された情報を送信する。actionは情報の送信先。methodにgetを指定するとURLの末尾に情報が付与されrて送信される。--}}
+    {{-- formタグはサーバーに入力された情報を送信する。actionは情報の送信先。methodにgetを指定するとURLの末尾に情報が付与されて送信される。--}}
     <table>
       @csrf
       <tr>
@@ -36,7 +37,7 @@
           id
         </th>
         <td>
-          <input type="text" name="id" value="{{$form->id}}">
+          <input type="text" name="id" value="{{$former->id}}">
         </td>
       </tr>
       <tr>
@@ -44,7 +45,7 @@
           list
         </th>
         <td>
-          <input type="text" name="list" value="{{$form->list}}">
+          <input type="text" name="list" value="{{$former->list}}">
         </td>
       </tr>
     </table>

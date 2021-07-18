@@ -7,15 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class TodoController extends Controller
 {
-    public function index(Request $request)  //publicは公開型（クラスの外からもアクセスできる）のアクセス修飾子。関数や変数の前につける。Laravelのサーボスコンテナの機能で、indexアクションメソッドの引数にRequestクラスを指定すればインスタンスが$requestに渡され利用できるようになる⇨メソッドインジェクション
+    public function add(Request $request)//Requestクラスのインスタンスを作る。$requestは変数でなんでもよいがrequestがわかりやすい。
     {
-        $items = DB::select('select * from tasks');  //クエリ文でtasksテーブルのレコードを全て$itemsに代入
-        // dd($items);  
-        return view('todo', ['items' => $items]);  //$itemsのレコード情報をtodo.blade.php内の'items'に入れ込む
-    }
-    public function add(Request $request)
-    {
-        return view('add');
+        return view('todo');
     }
     public function create(Request $request)
     {
@@ -27,24 +21,30 @@ class TodoController extends Controller
         DB::insert('insert into tasks (id, list) values (:id, :list)', $param);  //valueの:id, :listはプレースホルダ。ここに連装配列$paramのid,listの値を入れ込む。第１引数にレコード追加のクエリ文、第２引数にレコード値に代入する連装配列の変数がくる
         return redirect('/');  //ルートのページへリダイレクトで移動する。insert処理が終われば、/のページに移動するということ。
     }
-    public function edit(Request $request){
-        $param = [
-            'id' => $request->id
-        ];
-        // echo $param;
-        $item = DB::select('select * from tasks where id = :id', $param);
-        // echo $item;
-        return view('edit', ['form' => $item[0]]);
-    }
-    public function update(Request $request)
+
+    public function index(Request $request)  //publicは公開型（クラスの外からもアクセスできる）のアクセス修飾子。関数や変数の前につける。Laravelのサービスコンテナの機能で、indexアクションメソッドの引数にRequestクラスを指定すればインスタンスが$requestに渡され利用できるようになる⇨メソッドインジェクション。
     {
+        $items = DB::select('select * from tasks');  //クエリ文でtasksテーブルのレコードを全て$itemsに代入
+        // dd($items);  
+        return view('todo', ['items' => $items]);  //$itemsのレコード情報をtodo.blade.php内の'items'に入れ込む
+    }
+
+    // public function edit(Request $req){
+    //     $param = [
+    //         'ida' => $req->id
+    //     ];
+    //     $item = DB::select('select * from tasks where id = :ida', $param);
+    //     return view('edit', ['former' => $item[0]]);
+    // }
+    public function update(Request $reque){
         $param = [
-            'id' => $request->id,
-            'list' => $request->list,
+            'idb' => $reque->id,
+            'listA' => $reque->list,
         ];
-        DB::update('update tasks set list =:list where id =:id', $param);
+        DB::update('update tasks set list =:listA where id =:idb', $param);
         return redirect('/');
     }
+
     public function delete(Request $request){
         $param = [
             'id' => $request->id
@@ -56,7 +56,6 @@ class TodoController extends Controller
     {
         $param = [
             'id' => $request->id,
-            // 'list' => $request->list,
         ];
         DB::delete('delete from tasks where id =:id', $param);
         return redirect('/');
