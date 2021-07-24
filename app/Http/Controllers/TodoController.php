@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class TodoController extends Controller
 {
-    public function add(Request $request)//Requestクラスのインスタンスを作る。$requestは変数でなんでもよいがrequestがわかりやすい。
-    {
-        return view('todo');
-    }
+    // public function add(Request $request)//Requestクラスのインスタンスを作る。$requestは変数でなんでもよいがrequestがわかりやすい。
+    // {
+    //     return view('todo');
+    // }
     public function create(Request $request)
     {
         $param = [   //連装配列
@@ -28,30 +28,32 @@ class TodoController extends Controller
         // dd($items);  
         return view('todo', ['items' => $items]);  //$itemsのレコード情報をtodo.blade.php内の'items'に入れ込む
     }
+    
 
     // public function edit(Request $req){
     //     $param = [
-    //         'ida' => $req->id
+    //         'id-A' => $req->id
     //     ];
-    //     $item = DB::select('select * from tasks where id = :ida', $param);
-    //     return view('edit', ['former' => $item[0]]);
+    //     $form = DB::select('select * from tasks where id = :id-A', $param);
+    //     return view('todo', ['former' => $form[0]]);
     // }
     public function update(Request $reque){
         $param = [
-            'idb' => $reque->id,
-            'listA' => $reque->list,
+            'id' => $reque->id,
+            'list' => $reque->list,
         ];
-        DB::update('update tasks set list =:listA where id =:idb', $param);
+        DB::update('update tasks set list =:list where id =:id', $param);
         return redirect('/');
     }
+    
 
-    public function delete(Request $request){
-        $param = [
-            'id' => $request->id
-        ];
-        $item = DB::select('select * from tasks where id = :id', $param);
-        return view('delete', ['form' => $item[0]]);   
-    }
+    // public function delete(Request $request){
+    //     $param = [
+    //         'id' => $request->id
+    //     ];
+    //     $item = DB::select('select * from tasks where id = :id', $param);
+    //     return view('delete', ['form' => $item[0]]);   
+    // }
     public function remove(Request $request)
     {
         $param = [

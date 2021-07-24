@@ -28,7 +28,7 @@
   </style>
 </head>
 <body>
-  <form action="/" method="post">
+  <form action="/create" method="post">
     <table>
       @csrf
         <tr>
@@ -47,20 +47,26 @@
       <button>追加</button>
   </form>
   <table>
-    <form action="/" method="post">
-      @foreach ($items as $item) 
-      <tr>
-        <label for="{{$item->id}}">
-          {{$item->id}}
-        </label>
-        {{-- <input type="text" name="id" id="{{$item->id}}" value="{{$item->id}}"> --}}
-        <input type="text" name="list" id="{{$item->id}}" value="{{$item->list}}">
-        <button>更新</button>
-        <button>削除</button>
+    @foreach ($items as $former) 
+
+     <tr>
+       <form action="/edit" method="post">
+            @csrf
+          <input name="id" value="{{$former->id}}">
+          {{-- <input type="text" name="id" id="{{$item->id}}" value="{{$item->id}}"> --}}
+         <input type="text" name="list" value="{{$former->list}}">
+          <button>更新</button>
+       {{-- </form> --}}
+
+       {{-- <form action="/delete" method="post"> --}}
+         {{-- @csrf --}}
+         <button type="submit" formaction="/delete">削除</button>
+       </form>
       </tr>
       <br>
+
       @endforeach
-    </form>
+
   </table>
 </body>
 </html>
