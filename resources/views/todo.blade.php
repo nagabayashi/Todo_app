@@ -31,12 +31,12 @@
   <form action="/create" method="post">
     <table>
       @csrf
-        <tr>
+        {{-- <tr>
           <th>id</th>
           <td>
             <input type="text" name="id">
           </td>
-        </tr>
+        </tr> --}}
         <tr>
           <th>list</th>
           <td>
@@ -52,7 +52,7 @@
      <tr>
        <form action="/edit" method="post">
             @csrf
-          <input name="id" value="{{$former->id}}">
+          {{-- <input name="id" value="{{$former->id}}"> --}}
           {{-- <input type="text" name="id" id="{{$item->id}}" value="{{$item->id}}"> --}}
          <input type="text" name="list" value="{{$former->list}}">
           <button>更新</button>

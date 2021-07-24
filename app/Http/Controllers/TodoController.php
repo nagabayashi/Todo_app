@@ -14,11 +14,11 @@ class TodoController extends Controller
     public function create(Request $request)
     {
         $param = [   //連装配列
-            'id' => $request->id,  //キーである'id'を指定することで、入力した値を呼び出す
+            // 'id' => $request->id,  //キーである'id'を指定することで、入力した値を呼び出す
             'list' => $request->list,
         ];
         // dd($param);
-        DB::insert('insert into tasks (id, list) values (:id, :list)', $param);  //valueの:id, :listはプレースホルダ。ここに連装配列$paramのid,listの値を入れ込む。第１引数にレコード追加のクエリ文、第２引数にレコード値に代入する連装配列の変数がくる
+        DB::insert('insert into tasks (list) values (:list)', $param);  //valueの:id, :listはプレースホルダ。ここに連装配列$paramのid,listの値を入れ込む。第１引数にレコード追加のクエリ文、第２引数にレコード値に代入する連装配列の変数がくる
         return redirect('/');  //ルートのページへリダイレクトで移動する。insert処理が終われば、/のページに移動するということ。
     }
 
@@ -39,10 +39,10 @@ class TodoController extends Controller
     // }
     public function update(Request $reque){
         $param = [
-            'id' => $reque->id,
+            // 'id' => $reque->id,
             'list' => $reque->list,
         ];
-        DB::update('update tasks set list =:list where id =:id', $param);
+        DB::update('update tasks set list =:list where list =:list', $param);
         return redirect('/');
     }
     
@@ -57,9 +57,9 @@ class TodoController extends Controller
     public function remove(Request $request)
     {
         $param = [
-            'id' => $request->id,
+            'list' => $request->list,
         ];
-        DB::delete('delete from tasks where id =:id', $param);
+        DB::delete('delete from tasks where list =:list', $param);
         return redirect('/');
     }
 }
