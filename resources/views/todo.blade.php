@@ -47,21 +47,24 @@
       <button>追加</button>
   </form>
   <table>
-    @foreach ($items as $former) 
+    @foreach ($items as $item) 
 
      <tr>
        <form action="/edit" method="post">
             @csrf
           {{-- <input name="id" value="{{$former->id}}"> --}}
           {{-- <input type="text" name="id" id="{{$item->id}}" value="{{$item->id}}"> --}}
-         <input type="text" name="list" value="{{$former->list}}">
+         <input type="text" name="id" value="{{$item->list}}">
+         {{-- ->list　このlistがデータベースのカラムのlistである --}}
           <button>更新</button>
        {{-- </form> --}}
 
        {{-- <form action="/delete" method="post"> --}}
          {{-- @csrf --}}
-         <button type="submit" formaction="/delete">削除</button>
-       </form>
+        </form>
+        <form action="/delete">
+          <button>削除</button>
+        </form>
       </tr>
       <br>
 
